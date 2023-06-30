@@ -1,0 +1,16 @@
+{% extends 'main/layout.html' %}
+
+{% block content %}
+    <h1> База данных автомобилей. </h1>
+    <h6> В базе есть следующие модели:</h6>
+   {% for el in main %}
+    <h6>{{ el.car }}</h6>
+    {% endfor %}
+    <div class='features'>
+        <button class='btn btn-warning'><a href='api/countrys/'><i class='bi-pin-map-fill'></i>json «Страна»</a></button></br></br>
+        <button class='btn btn-warning'><a href='api/directors/'><i class='bi-pin-map-fill'></i>json «Производитель»</a></button></br></br>
+        <button class='btn btn-warning'><a href='api/cars/'><i class='bi-pin-map-fill'></i>json «Автомобиль»</a></button></br></br>
+        <button class='btn btn-warning'><a href='api/comments/'><i class='bi-pin-map-fill'></i>json «Комментарий»</a></button></br></br>
+    </div>
+
+{% endblock %}
