@@ -18,7 +18,6 @@ class Directors(models.Model):
     def __str__(self):
         return self.director
 
-
     class Meta:
         verbose_name = 'Производитль'
         verbose_name_plural = 'Производители'
@@ -42,7 +41,6 @@ class Comments(models.Model):
     avtocar = models.CharField('Автомобиль', max_length = 50)
     datacreate = models.DateTimeField('Дата создания', max_length=10)
     comment = models.TextField('Комментарий', max_length=400)
-
 
     def __str__(self):
         return self.avtor

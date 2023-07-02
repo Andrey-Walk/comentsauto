@@ -20,4 +20,4 @@ class CarsSerializer(serializers.ModelSerializer):
 class CommentsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comments
-        fields = ('avtor', 'datacreate', 'comment')
+        fields = ('avtor', 'avtocar', 'datacreate', 'comment')

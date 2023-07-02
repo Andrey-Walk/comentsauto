@@ -7,10 +7,20 @@
     <h6>{{ el.car }}</h6>
     {% endfor %}
     <div class='features'>
-        <button class='btn btn-warning'><a href='api/countrys/'><i class='bi-pin-map-fill'></i>json «Страна»</a></button></br></br>
-        <button class='btn btn-warning'><a href='api/directors/'><i class='bi-pin-map-fill'></i>json «Производитель»</a></button></br></br>
-        <button class='btn btn-warning'><a href='api/cars/'><i class='bi-pin-map-fill'></i>json «Автомобиль»</a></button></br></br>
-        <button class='btn btn-warning'><a href='api/comments/'><i class='bi-pin-map-fill'></i>json «Комментарий»</a></button></br></br>
+        <button class='btn btn-warning'><a href='api/countrys/'><i class='bi-pin-map-fill'></i>json «Страна»</a></button>
+        <button class='btn btn-warning'><a href='{% url "countrys_xlsx" %}?param=xlsx'><i class='bi-pin-map-fill'></i>Страны xlsx</a></button>
+        <button class='btn btn-warning'><a href='{% url "countrys_csv" %}?param=csv'><i class='bi-pin-map-fill'></i>Страны csv</a></button></br></br>
+        <button class='btn btn-warning'><a href='api/directors/'><i class='bi-pin-map-fill'></i>json «Производитель»</a></button>
+        <button class='btn btn-warning'><a href='{% url "directors_xlsx" %}?param=xlsx'><i class='bi-pin-map-fill'></i>Производители xlsx</a></button>
+        <button class='btn btn-warning'><a href='{% url "directors_csv" %}?param=csv'><i class='bi-pin-map-fill'></i>Производители csv</a></button></br></br>
+        <button class='btn btn-warning'><a href='api/cars/'><i class='bi-pin-map-fill'></i>json «Автомобиль»</a></button>
+        <button class='btn btn-warning'><a href='{% url "cars_xlsx" %}?param=xlsx'><i class='bi-pin-map-fill'></i>Автомобили xlsx</a></button>
+        <button class='btn btn-warning'><a href='{% url "cars_csv" %}?param=csv'><i class='bi-pin-map-fill'></i>Автомобили csv</a></button></br></br>
+        <button class='btn btn-warning'><a href='api/comments/'><i class='bi-pin-map-fill'></i>json «Комментарий»</a></button>
+        <button class='btn btn-warning'><a href='{% url "comments_xlsx" %}?param=xlsx'><i class='bi-pin-map-fill'></i>Комментарии xlsx</a></button>
+        <button class='btn btn-warning'><a href='{% url "comments_csv" %}?param=csv'><i class='bi-pin-map-fill'></i>Комментарии csv</a></button></br></br>
+        <button class='btn btn-warning'><a href='{% url "all_xlsx" %}?param=xlsx'><i class='bi-pin-map-fill'></i>Все данные xlsx</a></button>
+        <button class='btn btn-warning'><a href='{% url "all_csv" %}?param=csv'><i class='bi-pin-map-fill'></i>Все данные csv</a></button>
     </div>
 
 {% endblock %}
