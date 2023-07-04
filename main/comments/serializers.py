@@ -44,6 +44,11 @@ class CommentsSerializer(serializers.ModelSerializer):
             )
         return data
 
+    def create(self, validated_data):
+        comments = Comments.objects.create(**validated_data)
+        comments.save()
+        return comments
+
 
 class CarsSerializer(serializers.ModelSerializer):
     director = serializers.CharField(source='director.director')
