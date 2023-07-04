@@ -3,10 +3,12 @@ from django.http import HttpResponse
 import openpyxl
 from django.shortcuts import render
 from rest_framework.views import APIView
-from rest_framework import viewsets
+from rest_framework import viewsets, mixins
+from rest_framework.viewsets import GenericViewSet
+
 from .models import Countrys, Directors, Cars, Comments
 from .serializers import DirectorsSerializer, CountrysSerializer, CarsSerializer, CommentsSerializer
-from .permissions import LookPermission, TokenPermission
+from .permissions import TokenPermission
 
 
 def index(request):
@@ -16,18 +18,22 @@ def index(request):
 class DirectorsModelViewSet(viewsets.ModelViewSet):
     queryset = Directors.objects.all()
     serializer_class = DirectorsSerializer
+    permission_classes = [TokenPermission]
 
 class CountrysModelViewSet(viewsets.ModelViewSet):
     queryset = Countrys.objects
     serializer_class = CountrysSerializer
-    permission_classes = [LookPermission|TokenPermission]
+    permission_classes = [TokenPermission]
 
 class CarsModelViewSet(viewsets.ModelViewSet):
     queryset = Cars.objects
     serializer_class = CarsSerializer
-    permission_classes = [LookPermission|TokenPermission]
+    permission_classes = [TokenPermission]
 
-class CommentsModelViewSet(viewsets.ModelViewSet):
+class CommentsModelViewSet(mixins.CreateModelMixin,
+                   mixins.RetrieveModelMixin,
+                   mixins.ListModelMixin,
+                   GenericViewSet):
     queryset = Comments.objects
     serializer_class = CommentsSerializer
 
