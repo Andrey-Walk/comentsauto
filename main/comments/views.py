@@ -9,7 +9,7 @@ from .serializers import DirectorsSerializer, CountrysSerializer, CarsSerializer
 
 
 def index(request):
-    news = Countrys.objects.all()
+    news = Cars.objects.all()
     return render(request, 'main/index.html', {'main': news})
 
 class DirectorsModelViewSet(viewsets.ModelViewSet):
