@@ -2,28 +2,57 @@ from rest_framework import serializers
 from .models import Countrys, Directors, Cars, Comments
 
 
+class DirectorsSerializer(serializers.ModelSerializer):
+    country = serializers.CharField(source='country.country')
+    car = serializers.SerializerMethodField()
+    comments_count = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Directors
+        fields = ('director', 'country', 'car', 'comments_count')
+
+    def get_car(self, obj):
+        car = Cars.objects.filter(director = obj)
+        return CarsSerializer(car, many = True).data
+
+    def get_comments_count(self, obj):
+        comments_count = Comments.objects.filter(avtocar__director = obj).count()
+        return comments_count
+
 class CountrysSerializer(serializers.ModelSerializer):
-    directors = serializers.SerializerMethodField()
+    director = serializers.SerializerMethodField()
 
     class Meta:
         model = Countrys
-        fields = ('country', 'directors')
-
-    def get_directors(self, obj):
-        directors = Directors.objects.filter(country=obj)
-        return DirectorsSerializer(directors, many=True).data
-
-class DirectorsSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Directors
         fields = ('country', 'director')
 
-class CarsSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Cars
-        fields = ('car', 'director', 'datastart', 'dataend')
+    def get_director(self, obj):
+        director = Directors.objects.filter(country=obj)
+        return DirectorsSerializer(director, many = True).data
 
 class CommentsSerializer(serializers.ModelSerializer):
+    avtocar = serializers.CharField(source = 'avtocar.car')
+
     class Meta:
         model = Comments
         fields = ('avtor', 'avtocar', 'datacreate', 'comment')
+
+    def validate(self, data):
+        return data
+
+class CarsSerializer(serializers.ModelSerializer):
+    director = serializers.CharField(source='director.director')
+    comments = serializers.SerializerMethodField()
+    comments_count = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Cars
+        fields = ('car', 'director', 'datastart', 'dataend', 'comments', 'comments_count')
+
+    def get_comments_count(self, obj):
+        comments_count = Comments.objects.filter(avtocar = obj).count()
+        return comments_count
+
+    def get_comments(self, obj):
+        comments = Comments.objects.filter(avtocar = obj)
+        return CommentsSerializer(comments, many = True).data

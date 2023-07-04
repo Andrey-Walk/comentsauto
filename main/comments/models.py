@@ -13,19 +13,18 @@ class Countrys(models.Model):
 
 class Directors(models.Model):
     director = models.CharField('Имя', max_length=50)
-    country = models.CharField('Страна', max_length=50)
+    country = models.ForeignKey(Countrys, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.director
 
     class Meta:
-        verbose_name = 'Производитль'
+        verbose_name = 'Производитель'
         verbose_name_plural = 'Производители'
 
 class Cars(models.Model):
-
     car = models.CharField('Имя', max_length=50)
-    director = models.CharField('Производитель', max_length=50)
+    director = models.ForeignKey(Directors, on_delete=models.CASCADE)
     datastart = models.DateField('Год начала выпуска', max_length=10)
     dataend = models.DateField('Год окончания выпуска', max_length=10)
 
@@ -38,8 +37,8 @@ class Cars(models.Model):
 
 class Comments(models.Model):
     avtor = models.CharField('Email автора', max_length=50)
-    avtocar = models.CharField('Автомобиль', max_length = 50)
-    datacreate = models.DateTimeField('Дата создания', max_length=10)
+    avtocar = models.ForeignKey(Cars, on_delete=models.CASCADE)
+    datacreate = models.DateTimeField('Дата создания', auto_now_add=True)
     comment = models.TextField('Комментарий', max_length=400)
 
     def __str__(self):
