@@ -6,6 +6,7 @@ from rest_framework.views import APIView
 from rest_framework import viewsets
 from .models import Countrys, Directors, Cars, Comments
 from .serializers import DirectorsSerializer, CountrysSerializer, CarsSerializer, CommentsSerializer
+from .permissions import LookPermission, TokenPermission
 
 
 def index(request):
@@ -19,10 +20,12 @@ class DirectorsModelViewSet(viewsets.ModelViewSet):
 class CountrysModelViewSet(viewsets.ModelViewSet):
     queryset = Countrys.objects
     serializer_class = CountrysSerializer
+    permission_classes = [LookPermission|TokenPermission]
 
 class CarsModelViewSet(viewsets.ModelViewSet):
     queryset = Cars.objects
     serializer_class = CarsSerializer
+    permission_classes = [LookPermission|TokenPermission]
 
 class CommentsModelViewSet(viewsets.ModelViewSet):
     queryset = Comments.objects
