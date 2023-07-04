@@ -38,6 +38,8 @@ class CommentsSerializer(serializers.ModelSerializer):
         fields = ('avtor', 'avtocar', 'datacreate', 'comment')
 
     def validate(self, data):
+        if len(data['comment']) < 1:
+            raise serializers.ValidationError("Длина комментария должна быть не менее 1 символа.")
         return data
 
 class CarsSerializer(serializers.ModelSerializer):
